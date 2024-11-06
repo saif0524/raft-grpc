@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_package = "grpc";
+option java_outer_classname = "RaftNodeProto";
+
+service Raft {
+    // RPC for requesting votes in an election
+    rpc RequestVote (VoteRequest) returns (VoteResponse);
+    // RPC for sending heartbeats and log entries
+    rpc AppendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
+}
+
+message VoteRequest {
+    int32 term = 1;
+    string candidate_id = 2;
+}
+
+message VoteResponse {
+    bool vote_granted = 1;
+    int32 term = 2;
+}
+
+message AppendEntriesRequest {
+    int32 term = 1;
+    string leader_id = 2;
+    repeated LogEntry entries = 3;
+}
+
+message AppendEntriesResponse {
+    bool success = 1;
+    int32 term = 2;
+}
+
+message LogEntry {
+    string operation = 1;
+    int32 term = 2;
+}
