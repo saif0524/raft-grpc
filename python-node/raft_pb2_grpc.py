@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class RaftStub(object):
+class RaftServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -35,41 +35,39 @@ class RaftStub(object):
             channel: A grpc.Channel.
         """
         self.RequestVote = channel.unary_unary(
-                '/Raft/RequestVote',
-                request_serializer=raft__pb2.VoteRequest.SerializeToString,
-                response_deserializer=raft__pb2.VoteResponse.FromString,
+                '/raft.RaftService/RequestVote',
+                request_serializer=raft__pb2.RequestVoteRequest.SerializeToString,
+                response_deserializer=raft__pb2.RequestVoteResponse.FromString,
                 _registered_method=True)
         self.AppendEntries = channel.unary_unary(
-                '/Raft/AppendEntries',
+                '/raft.RaftService/AppendEntries',
                 request_serializer=raft__pb2.AppendEntriesRequest.SerializeToString,
                 response_deserializer=raft__pb2.AppendEntriesResponse.FromString,
                 _registered_method=True)
 
 
-class RaftServicer(object):
+class RaftServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def RequestVote(self, request, context):
-        """RPC for requesting votes in an election
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AppendEntries(self, request, context):
-        """RPC for sending heartbeats and log entries
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_RaftServicer_to_server(servicer, server):
+def add_RaftServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'RequestVote': grpc.unary_unary_rpc_method_handler(
                     servicer.RequestVote,
-                    request_deserializer=raft__pb2.VoteRequest.FromString,
-                    response_serializer=raft__pb2.VoteResponse.SerializeToString,
+                    request_deserializer=raft__pb2.RequestVoteRequest.FromString,
+                    response_serializer=raft__pb2.RequestVoteResponse.SerializeToString,
             ),
             'AppendEntries': grpc.unary_unary_rpc_method_handler(
                     servicer.AppendEntries,
@@ -78,13 +76,13 @@ def add_RaftServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Raft', rpc_method_handlers)
+            'raft.RaftService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('Raft', rpc_method_handlers)
+    server.add_registered_method_handlers('raft.RaftService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class Raft(object):
+class RaftService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -101,9 +99,9 @@ class Raft(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/Raft/RequestVote',
-            raft__pb2.VoteRequest.SerializeToString,
-            raft__pb2.VoteResponse.FromString,
+            '/raft.RaftService/RequestVote',
+            raft__pb2.RequestVoteRequest.SerializeToString,
+            raft__pb2.RequestVoteResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -128,7 +126,7 @@ class Raft(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/Raft/AppendEntries',
+            '/raft.RaftService/AppendEntries',
             raft__pb2.AppendEntriesRequest.SerializeToString,
             raft__pb2.AppendEntriesResponse.FromString,
             options,

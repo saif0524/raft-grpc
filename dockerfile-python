@@ -1,0 +1,16 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install required packages
+RUN pip install grpcio grpcio-tools
+
+# Copy the proto file and generate gRPC code
+COPY protos/raft.proto .
+RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. raft.proto
+
+# Copy the implementation
+COPY python-node/raft-node.py .
+
+# Run the server
+CMD ["python", "raft-node.py"]

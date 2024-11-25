@@ -1,0 +1,79 @@
+services:
+  raft-node-0:
+    build: 
+      context: .
+      dockerfile: dockerfile-java
+    environment:
+      - NODE_ID=0
+      - SERVER_ADDRESS=0.0.0.0:50051
+      - PEER_0=raft-node-0:50051
+      - PEER_1=raft-node-1:50051
+      - PEER_2=raft-node-2:50051
+      - PEER_3=raft-node-3:50051
+      - PEER_4=raft-node-4:50051
+    networks:
+      - raft-network
+
+  raft-node-1:
+    build:
+      context: .
+      dockerfile: dockerfile-java
+    environment:
+      - NODE_ID=1
+      - SERVER_ADDRESS=0.0.0.0:50051
+      - PEER_0=raft-node-0:50051
+      - PEER_1=raft-node-1:50051
+      - PEER_2=raft-node-2:50051
+      - PEER_3=raft-node-3:50051
+      - PEER_4=raft-node-4:50051
+    networks:
+      - raft-network
+
+  raft-node-2:
+    build:
+      context: .
+      dockerfile: dockerfile-java
+    environment:
+      - NODE_ID=2
+      - SERVER_ADDRESS=0.0.0.0:50051
+      - PEER_0=raft-node-0:50051
+      - PEER_1=raft-node-1:50051
+      - PEER_2=raft-node-2:50051
+      - PEER_3=raft-node-3:50051
+      - PEER_4=raft-node-4:50051
+    networks:
+      - raft-network
+
+  raft-node-3:
+    build:
+      context: .
+      dockerfile: dockerfile-java
+    environment:
+      - NODE_ID=3
+      - SERVER_ADDRESS=0.0.0.0:50051
+      - PEER_0=raft-node-0:50051
+      - PEER_1=raft-node-1:50051
+      - PEER_2=raft-node-2:50051
+      - PEER_3=raft-node-3:50051
+      - PEER_4=raft-node-4:50051
+    networks:
+      - raft-network
+
+  raft-node-4:
+    build:
+      context: .
+      dockerfile: dockerfile-java
+    environment:
+      - NODE_ID=4
+      - SERVER_ADDRESS=0.0.0.0:50051
+      - PEER_0=raft-node-0:50051
+      - PEER_1=raft-node-1:50051
+      - PEER_2=raft-node-2:50051
+      - PEER_3=raft-node-3:50051
+      - PEER_4=raft-node-4:50051
+    networks:
+      - raft-network
+
+networks:
+  raft-network:
+    driver: bridge
